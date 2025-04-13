@@ -24,7 +24,7 @@ class Song(models.Model):
     file_path = models.CharField(max_length=255)
     image_path = models.CharField(max_length=255)
     description = models.TextField()
-    duration = models.TimeField()
+    duration = models.CharField(max_length=20)
     album = models.ForeignKey(Album, on_delete=models.CASCADE)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
     def __str__(self):
