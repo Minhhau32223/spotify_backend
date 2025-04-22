@@ -4,7 +4,7 @@ from .models import User, Album, Song, Playlist, PlaylistSong, FavoriteSong  , A
 from .serializers import UserSerializer, AlbumSerializer, SongSerializer, PlaylistSerializer, PlaylistSongSerializer, FavoriteSongSerializer,artistSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-
+from rest_framework.generics import ListAPIView
 class ArtistViewSet(viewsets.ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = artistSerializer
@@ -31,5 +31,14 @@ class PlaylistSongViewSet(viewsets.ModelViewSet):
 class FavoriteSongViewSet(viewsets.ModelViewSet):
     queryset = FavoriteSong.objects.all()
     serializer_class = FavoriteSongSerializer
+
+
+
+class SongsInAlbumView(ListAPIView):
+    serializer_class = SongSerializer
+
+    def get_queryset(self):
+        album_id = self.kwargs['album_id']
+        return Song.objects.filter(album_id=album_id)
 
 # Create your views here.
