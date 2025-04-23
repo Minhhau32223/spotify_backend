@@ -40,5 +40,14 @@ class SongsInAlbumView(ListAPIView):
     def get_queryset(self):
         album_id = self.kwargs['album_id']
         return Song.objects.filter(album_id=album_id)
+    
+class SongsInPlaylistView(ListAPIView):
+    serializer_class = SongSerializer
+
+    def get_queryset(self):
+        playlist_id = self.kwargs['playlist_id']
+        playlist_songs = PlaylistSong.objects.filter(playlist_id=playlist_id)
+        song_ids = playlist_songs.values_list('song_id', flat=True)
+        return Song.objects.filter(id__in=song_ids)
 
 # Create your views here.
