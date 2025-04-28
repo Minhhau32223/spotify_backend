@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from music.views import SongViewSet, AlbumViewSet, UserViewSet, PlaylistViewSet, FavoriteSongViewSet,ArtistViewSet, PlaylistSongViewSet, SongsInAlbumView, SongsInPlaylistView
+from music.views import SongViewSet, AlbumViewSet, UserViewSet, PlaylistViewSet, FavoriteSongViewSet,ArtistViewSet, PlaylistSongViewSet, SongsInAlbumView, SongsInPlaylistView, chat_with_ai
 
 
 router = routers.DefaultRouter()
@@ -33,5 +33,6 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('albums/<int:album_id>/songs/', SongsInAlbumView.as_view(), name='songs-in-album'),
     path('playlists/<int:playlist_id>/songs/', SongsInPlaylistView.as_view(), name='songs-in-playlist'),
+    path('api/', include('music.urls')),
     
 ]
