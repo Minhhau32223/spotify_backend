@@ -18,7 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from music.views import SongViewSet, AlbumViewSet, UserViewSet, PlaylistViewSet, FavoriteSongViewSet,ArtistViewSet, PlaylistSongViewSet, SongsInAlbumView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .authentication import CustomTokenObtainPairSerializer
 
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 router = routers.DefaultRouter()
 router.register(r'songs', SongViewSet)
@@ -33,4 +37,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('albums/<int:album_id>/songs/', SongsInAlbumView.as_view(), name='songs-in-album'),
     
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+   
 ]
