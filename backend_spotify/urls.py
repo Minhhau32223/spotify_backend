@@ -71,6 +71,7 @@ urlpatterns = [
 
     # ------- AI Chatbot --------
     path('api/chat/', views.chat_with_ai, name='chat_with_ai'),
+    
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
