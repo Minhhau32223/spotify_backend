@@ -11,3 +11,8 @@ class FavoriteSongDAO:
     def get_favorite_song_by_id(favorite_song_id):
         f = FavoriteSong.objects.filter(id=favorite_song_id).first()
         return FavoriteSongDTO(f.id, f.user_id, f.song_id) if f else None
+    @staticmethod
+    def create_favorite_song(user_id, song_id):
+        favorite_song = FavoriteSong(user_id=user_id, song_id=song_id)
+        favorite_song.save()
+        return FavoriteSongDTO(favorite_song.id, favorite_song.user_id, favorite_song.song_id)

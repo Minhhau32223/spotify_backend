@@ -7,3 +7,6 @@ class FavoriteSongService:
     @staticmethod
     def get_favorite_song_by_id(favorite_song_id):
         return FavoriteSongDAO.get_favorite_song_by_id(favorite_song_id)
+    @staticmethod
+    def create_favorite_song(user_id, song_id):
+        return FavoriteSongDAO.create_favorite_song(user_id, song_id)

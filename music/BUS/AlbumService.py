@@ -12,3 +12,6 @@ class AlbumService:
     def get_songs_in_album(album_id):
         # Truy vấn các bài hát của album từ cơ sở dữ liệu
         return SongDAO.objects.filter(album_id=album_id)
+    @staticmethod
+    def create_album(name, description, image, bg_color):
+        return AlbumDAO.create_album(name, description, image, bg_color)

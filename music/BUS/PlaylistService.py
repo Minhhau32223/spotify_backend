@@ -8,3 +8,6 @@ class PlaylistService:
     @staticmethod
     def get_playlist_by_id(playlist_id):
         return PlaylistDAO.get_playlist_by_id(playlist_id)
+    @staticmethod
+    def create_playlist(name, user_id):
+        return PlaylistDAO.create_playlist(name, user_id)

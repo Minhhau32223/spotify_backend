@@ -21,3 +21,8 @@ class SongDAO:
         # Truy vấn các bài hát của playlist từ cơ sở dữ liệu
         songs = Song.objects.filter(playlist_id=playlist_id)
         return [SongDTO(s.id, s.name, s.file, s.image, s.desc, s.duration, s.album_id, s.artist_id) for s in songs]
+    @staticmethod
+    def create_song(name, file, image, desc, duration, album_id, artist_id):
+        song = Song(name=name, file=file, image=image, desc=desc, duration=duration, album_id=album_id, artist_id=artist_id)
+        song.save()
+        return SongDTO(song.id, song.name, song.file, song.image, song.desc, song.duration, song.album_id, song.artist_id)

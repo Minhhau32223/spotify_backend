@@ -16,3 +16,6 @@ class SongService:
     def get_songs_in_playlist(playlist_id):
     
         return SongDAO.get_songs_in_playlist(playlist_id)
+    @staticmethod
+    def create_song(name, file, image, desc, duration, album_id, artist_id):
+        return SongDAO.create_song(name, file, image, desc, duration, album_id, artist_id)

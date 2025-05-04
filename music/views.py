@@ -20,6 +20,21 @@ def get_user_detail(request, user_id):
     user = UserService.get_user_by_id(user_id)
     return Response(user.__dict__) if user else Response({'error': 'Not found'}, status=404)
 
+@api_view(['POST'])
+def create_user(request):
+    """
+    Phương thức POST để tạo mới người dùng
+    """
+    username = request.data.get('username')
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    if not username or not email or not password:
+        return Response({'error': 'Missing required fields'}, status=400)
+
+    user = UserService.create_user(username, email, password)
+    return Response(user.__dict__, status=201)
+
 # ---------- ALBUM CONTROLLER ----------
 @api_view(['GET'])
 def get_all_albums(request):
@@ -30,6 +45,18 @@ def get_all_albums(request):
 def get_album_detail(request, album_id):
     album = AlbumService.get_album_by_id(album_id)
     return Response(album.__dict__) if album else Response({'error': 'Not found'}, status=404)
+@api_view(['POST'])
+def create_album(request):
+    name = request.data.get('name')
+    description = request.data.get('description')
+    image = request.data.get('image')
+    bg_color = request.data.get('bg_color')
+
+    if not name or not description or not image or not bg_color:
+        return Response({'error': 'Missing required fields'}, status=400)
+
+    album = AlbumService.create_album(name, description, image, bg_color)
+    return Response(album.__dict__, status=201)
 
 # ---------- SONG CONTROLLER ----------
 @api_view(['GET'])
@@ -41,6 +68,21 @@ def get_all_songs(request):
 def get_song_detail(request, song_id):
     song = SongService.get_song_by_id(song_id)
     return Response(song.__dict__) if song else Response({'error': 'Not found'}, status=404)
+@api_view(['POST'])
+def create_song(request):
+    name = request.data.get('name')
+    album_id = request.data.get('album_id')
+    artist_id = request.data.get('artist_id')
+    desc = request.data.get('desc')
+    duration = request.data.get('duration')
+    file = request.data.get('file')
+    image = request.data.get('image')
+
+    if not name or not album_id or not artist_id or not duration or not file or not image:
+        return Response({'error': 'Missing required fields'}, status=400)
+
+    song = SongService.create_song(name, file, image, desc, duration, album_id, artist_id)
+    return Response(song.__dict__, status=201)
 
 # ---------- ARTIST CONTROLLER ----------
 @api_view(['GET'])
@@ -52,7 +94,17 @@ def get_all_artists(request):
 def get_artist_detail(request, artist_id):
     artist = ArtistService.get_artist_by_id(artist_id)
     return Response(artist.__dict__) if artist else Response({'error': 'Not found'}, status=404)
+@api_view(['POST'])
+def create_artist(request):
+    name = request.data.get('name')
+    bio = request.data.get('bio')
+    image = request.data.get('profile_image')
 
+    if not name or not bio or not image:
+        return Response({'error': 'Missing required fields'}, status=400)
+
+    artist = ArtistService.create_artist(name, bio, image)
+    return Response(artist.__dict__, status=201)
 # ---------- PLAYLIST CONTROLLER ----------
 @api_view(['GET'])
 def get_all_playlists(request):
@@ -63,7 +115,16 @@ def get_all_playlists(request):
 def get_playlist_detail(request, playlist_id):
     playlist = PlaylistService.get_playlist_by_id(playlist_id)
     return Response(playlist.__dict__) if playlist else Response({'error': 'Not found'}, status=404)
+@api_view(['POST'])
+def create_playlist(request):
+    name = request.data.get('name')
+    user_id = request.data.get('user_id')
 
+    if not name or not user_id:
+        return Response({'error': 'Missing required fields'}, status=400)
+
+    playlist = PlaylistService.create_playlist(name, user_id)
+    return Response(playlist.__dict__, status=201)
 # ---------- PLAYLIST SONG CONTROLLER ----------
 @api_view(['GET'])
 def get_all_playlist_songs(request):
@@ -75,6 +136,16 @@ def get_playlist_song_detail(request, ps_id):
     playlist_song = PlaylistSongService.get_playlist_song_by_id(ps_id)
     return Response(playlist_song.__dict__) if playlist_song else Response({'error': 'Not found'}, status=404)
 
+@api_view(['POST'])
+def create_playlist_song(request):
+    playlist_id = request.data.get('playlist_id')
+    song_id = request.data.get('song_id')
+
+    if not playlist_id or not song_id:
+        return Response({'error': 'Missing required fields'}, status=400)
+
+    playlist_song = PlaylistSongService.create_playlist_song(playlist_id, song_id)
+    return Response(playlist_song.__dict__, status=201)
 # ---------- FAVORITE SONG CONTROLLER ----------
 @api_view(['GET'])
 def get_all_favorite_songs(request):
@@ -85,7 +156,16 @@ def get_all_favorite_songs(request):
 def get_favorite_song_detail(request, fs_id):
     favorite_song = FavoriteSongService.get_favorite_song_by_id(fs_id)
     return Response(favorite_song.__dict__) if favorite_song else Response({'error': 'Not found'}, status=404)
+@api_view(['POST'])
+def create_favorite_song(request):
+    user_id = request.data.get('user_id')
+    song_id = request.data.get('song_id')
 
+    if not user_id or not song_id:
+        return Response({'error': 'Missing required fields'}, status=400)
+
+    favorite_song = FavoriteSongService.create_favorite_song(user_id, song_id)
+    return Response(favorite_song.__dict__, status=201)
 # ---------- SONGS IN ALBUM ----------
 @api_view(['GET'])
 def get_songs_in_album(request, album_id):
