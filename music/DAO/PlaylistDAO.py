@@ -16,3 +16,7 @@ class PlaylistDAO:
         playlist = Playlist(name=name, user_id=user_id)
         playlist.save()
         return PlaylistDTO(playlist.id, playlist.name, playlist.user_id)
+    @staticmethod
+    def get_playlists_by_user_id(user_id):
+        playlists = Playlist.objects.filter(user_id=user_id)
+        return [PlaylistDTO(p.id, p.name, p.user_id) for p in playlists]

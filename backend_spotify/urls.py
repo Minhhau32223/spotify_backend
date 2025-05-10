@@ -43,7 +43,7 @@ urlpatterns = [
         path('api/users/', views.get_all_users, name='get_all_users'),
         path('api/users/<int:user_id>/', views.get_user_detail, name='get_user_detail'),
         path('api/users/create/', views.create_user, name='create_user'),  # POST cho user
-
+        path('api/users/email/<str:email>/', views.get_user_by_email, name='get_user_by_email'),
         # ------- Album --------
         path('api/albums/', views.get_all_albums, name='get_all_albums'),
         path('api/albums/<int:album_id>/', views.get_album_detail, name='get_album_detail'),
@@ -65,6 +65,7 @@ urlpatterns = [
         path('api/playlists/<int:playlist_id>/', views.get_playlist_detail, name='get_playlist_detail'),
         path('api/playlists/create/', views.create_playlist, name='create_playlist'),  # POST cho playlist
         path('api/playlists/<int:playlist_id>/songs/', views.get_songs_in_playlist, name='songs_in_playlist'),
+        path('api/playlists/user/<int:user_id>/', views.get_playlists_by_user_id,name='get_playlists_by_user_id'),
 
         # ------- Playlist Song --------
         path('api/playlist-songs/', views.get_all_playlist_songs, name='get_all_playlist_songs'),

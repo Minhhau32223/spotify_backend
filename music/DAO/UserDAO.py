@@ -18,3 +18,9 @@ class UserDAO:
         user = User(username=username, email=email, is_admin=is_admin)
         user.save()
         return UserDTO(user.id, user.username, user.email, user.is_admin,password)
+    @staticmethod
+    def get_user_by_email(email):
+        u = User.objects.filter(email=email).first()
+        if u:
+            return UserDTO(u.id, u.username, u.email, u.is_admin)
+        return None

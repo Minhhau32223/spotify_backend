@@ -1,4 +1,4 @@
-from music.models import Song
+from music.models import Song, PlaylistSong
 from music.DTO.SongDTO import SongDTO
 
 class SongDAO:
@@ -18,8 +18,8 @@ class SongDAO:
         songs = Song.objects.filter(album_id=album_id)
         return [SongDTO(s.id, s.name, s.file, s.image, s.desc, s.duration, s.album_id, s.artist_id) for s in songs]
     def get_songs_in_playlist(playlist_id):
-        # Truy vấn các bài hát của playlist từ cơ sở dữ liệu
-        songs = Song.objects.filter(playlist_id=playlist_id)
+        playlist_songs = PlaylistSong.objects.filter(playlist_id=playlist_id)
+        songs = [ps.song for ps in playlist_songs]
         return [SongDTO(s.id, s.name, s.file, s.image, s.desc, s.duration, s.album_id, s.artist_id) for s in songs]
     @staticmethod
     def create_song(name, file, image, desc, duration, album_id, artist_id):

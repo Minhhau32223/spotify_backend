@@ -11,3 +11,6 @@ class UserService:
     @staticmethod
     def create_user(username, email, password,is_admin=False):
         return UserDAO.create_user(username, email, password,is_admin)
+    @staticmethod
+    def get_user_by_email(email):
+        return UserDAO.get_user_by_email(email)

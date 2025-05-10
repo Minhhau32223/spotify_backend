@@ -19,6 +19,10 @@ def get_all_users(request):
 def get_user_detail(request, user_id):
     user = UserService.get_user_by_id(user_id)
     return Response(user.__dict__) if user else Response({'error': 'Not found'}, status=404)
+@api_view(['GET'])
+def get_user_by_email(request, email):
+    user = UserService.get_user_by_email(email)
+    return Response(user.__dict__) if user else Response({'error': 'Not found'}, status=404)
 
 @api_view(['POST'])
 def create_user(request):
@@ -115,6 +119,12 @@ def get_all_playlists(request):
 def get_playlist_detail(request, playlist_id):
     playlist = PlaylistService.get_playlist_by_id(playlist_id)
     return Response(playlist.__dict__) if playlist else Response({'error': 'Not found'}, status=404)
+
+@api_view(['GET'])
+def get_playlists_by_user_id(request, user_id):
+    playlists = PlaylistService.get_playlists_by_user_id(user_id)
+    return Response([playlist.__dict__ for playlist in playlists])
+
 @api_view(['POST'])
 def create_playlist(request):
     name = request.data.get('name')
